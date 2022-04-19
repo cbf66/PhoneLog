@@ -11,14 +11,13 @@ namespace PhoneLog
   {
     static int Main(string[] args)
     {
-      string porttoopen = args[0];
       if (args.Length != 2)
       {
         Console.WriteLine("Usage: PhoneLog {comX} {path to phone log}");
         return 1;
       }
+      string porttoopen = args[0];
       string path = args[1];
-
       
       StreamWriter sw;
       if (!File.Exists(path))
@@ -28,6 +27,7 @@ namespace PhoneLog
       }
       
       SerialPort port = new SerialPort(porttoopen, 19200, Parity.None, 8);
+      port.Handshake = Handshake.None;
       port.Open();
       port.DtrEnable = true;
       port.RtsEnable = true;
